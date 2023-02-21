@@ -1,0 +1,83 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block custom_page_title %}Seznam osob{% endblock %}
+{% block custom_page_subtitle %}{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary table-box">
+                <div class="box-body">
+                    <table class="table table-bordered table-hover" data-controller="data-table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Jméno</th>
+                            <th>Příjmení</th>
+                            <th>Telefon</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for person in persons %}
+                            <tr>
+                                <td>
+                                    {{ person.id }}
+                                </td>
+                                <td>
+                                    {{ person.firstName }}
+                                </td>
+                                <td>
+                                    {{ person.lastName }}
+                                </td>
+                                <td>
+                                    {{ person.phone }}
+                                </td>
+                                <td>
+                                    {{ person.email }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_person_edit',{'id':person.id}) }}"
+                                       class="btn btn-primary btn-sm">Upravit</a>
+                                </td>
+                                <td>
+                                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete-modal-{{ person.id }}">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% include 'admin/person/includes/_delete_modal_form.html.twig' with { 'id' : person.id } %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+
+                $("#delete-item").click(function (e) {
+
+                    let url = $(".btn-danger").attr("href");
+
+                    $.ajax({
+                        url: url,
+                        method: 'DELETE',
+                        success: function () {
+
+                        }
+                    });
+                    $('#confirm-delete-modal').modal('hide')
+                    return false;
+                });
+            });
+        })(jQuery);
+    </script>
+{% endblock %}
+
+

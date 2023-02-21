@@ -1,0 +1,87 @@
+
+{% extends 'Admin/base.html.twig' %}
+
+{% block custom_page_title %}Seznam budov{% endblock %}
+{% block custom_page_subtitle %}{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary table-box">
+                <div class="box-body">
+                    <table class="table table-bordered table-hover" data-controller="data-table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Název budovy</th>
+                            <th>Město</th>
+                            <th>Adresa</th>
+                            <th>Číslo popisné</th>
+                            <th>PSČ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for building in buildings %}
+                            <tr>
+                                <td>
+                                    {{ building.id }}
+                                </td>
+                                <td>
+                                    {{ building.title }}
+                                </td>
+                                <td>
+                                    {{ building.city }}
+                                </td>
+                                <td>
+                                    {{ building.address }}
+                                </td>
+                                <td>
+                                    {{ building.descriptionNumber }}
+                                </td>
+                                <td>
+                                    {{ building.postZip }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_building_edit',{'id':building.id}) }}"
+                                       class="btn btn-primary btn-sm">Edit</a>
+                                </td>
+                                <td>
+                                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete-modal-{{ building.id }}">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% include 'admin/building/includes/_delete_modal_form.html.twig' with { 'id': building.id } %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+
+                $("#delete-item").click(function (e) {
+
+                    let url = $(".btn-danger").attr("href");
+
+                    $.ajax({
+                        url: url,
+                        method: 'DELETE',
+                        success: function () {
+
+                        }
+                    });
+                    $('#confirm-delete-modal').modal('hide')
+                    return false;
+                });
+            });
+        })(jQuery);
+    </script>
+{% endblock %}
+

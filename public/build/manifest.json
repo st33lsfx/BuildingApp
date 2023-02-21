@@ -1,0 +1,7 @@
+{
+  "build/app.css": "http://localhost:8080/build/app.css",
+  "build/app.js": "http://localhost:8080/build/app.js",
+  "build/runtime.js": "http://localhost:8080/build/runtime.js",
+  "build/vendors-assets_frontend_node_modules_core-js_modules_es_array_for-each_js-assets_frontend_nod-85aae7.js": "http://localhost:8080/build/vendors-assets_frontend_node_modules_core-js_modules_es_array_for-each_js-assets_frontend_nod-85aae7.js",
+  "build/vendors-assets_frontend_node_modules_core-js_modules_es_array_for-each_js-assets_frontend_nod-f40a5f.js": "http://localhost:8080/build/vendors-assets_frontend_node_modules_core-js_modules_es_array_for-each_js-assets_frontend_nod-f40a5f.js"
+}

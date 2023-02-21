@@ -1,0 +1,80 @@
+{% extends '@AdminLTE/layout/default-layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {% block page_head %}
+    {% endblock page_head %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% block page_stylesheets %}
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+    <div class="js-variables"
+            {% block js_variables %}
+            {% endblock %}
+    >
+    </div>
+
+    {% block page_javascripts %}
+    {% endblock %}
+{% endblock %}
+
+{% block title %}
+    {{ block('custom_page_title') }}
+{% endblock %}
+
+{% block page_title %}
+    {% if block('back_path') is defined and block('back_path') %}
+        <a href="{% block back_path %}{% endblock %}"><i class="fas fa-arrow-left"></i></a>&nbsp;
+    {% endif %}
+
+    {% block custom_page_title %}{% endblock %}
+{% endblock %}
+
+{% block page_subtitle %}
+    {% block custom_page_subtitle %}{% endblock %}
+
+    {% if allow_edit is defined and allow_edit %}
+        {% if block('edit_path') is defined and block('edit_path') %}
+            <a href="{% block edit_path %}{% endblock %}">
+                <i class="far fa-edit"></i>
+            </a>&nbsp;
+        {% endif %}
+    {% endif %}
+
+    {% if allow_remove is defined and allow_remove %}
+        {% if block('remove_path') is defined and block('remove_path') %}
+            {% if block('remove_message') is defined and block('remove_message') %}
+                {% set remove_message = block('remove_message') %}
+            {% else %}
+                {% set remove_message = 'Opravdu chcete provést odstranění? Tato akce je nevratná.' %}
+            {% endif %}
+
+            <a href="{% block remove_path %}{% endblock %}" class="text-danger"
+               onclick="return confirm('{{ remove_message }}');">
+                <i class="far fa-trash-alt"></i>
+            </a>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block sidebar_search %}
+    {# Disable search in sidebar #}
+{% endblock %}
+
+{% block after_body_start %}{% endblock %}
+
+{% block footer %}
+    {# Remove copyright from footer #}
+{% endblock %}
+
+

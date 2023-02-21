@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block custom_page_title %}Nová osoba{% endblock %}
+{% block custom_page_subtitle %}{% endblock %}
+{% block back_path %}{{ path('app_person_list') }}{% endblock %}
+
+{% block page_content %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="box box-primary table-box">
+                <div class="box-body">
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.phone) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form._token) }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success pull-right">Uložit</button>
+        </div>
+    </div>
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}
+
+
